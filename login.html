@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login PMR SMKN 8</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #fff, red);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #d72020;
+    }
+    .login-box {
+      background: rgba(243, 238, 238, 0.968);
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+    }
+    .login-box h2 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #fff;
+      color: #d32f2f;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #f5f5f5;
+    }
+    .reset-btn {
+      background: #555;
+      color: #fff;
+      margin-top: 10px;
+    }
+    .reset-btn:hover {
+      background: #333;
+    }
+    .error {
+      color: #ffbaba;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Masukkan nama pengguna" required>
+      <button type="submit">Masuk</button>
+    </form>
+    <p id="errorMsg" class="error"></p>
+  </div>
+
+  <script>
+    const adminList = ['habibi', 'rayhan', 'admin'];
+
+    // Form login
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim().toLowerCase();
+
+      if(username){
+        localStorage.setItem('loginUser', username);
+        if(adminList.includes(username)){
+          window.location.href = 'admin.html';
+        } else {
+          window.location.href = 'pmr.html';
+        }
+      } else {
+        document.getElementById('errorMsg').textContent = "Nama pengguna tidak boleh kosong.";
+      }
+    });
+
+    // Reset login
+    function resetLogin(){
+      localStorage.clear();
+      location.reload();
+    }
+  </script>
+
+</body>
+</html>

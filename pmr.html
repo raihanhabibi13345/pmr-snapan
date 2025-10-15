@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Website PMR SMKN 8</title>
+  <style>
+    :root {
+      --primary: #d32f2f;
+      --primary-dark: #b71c1c;
+      --bg: #f8f9fa;
+      --text: #333;
+      --white: #fff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", Tahoma, sans-serif; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary);
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    header h1 { font-size: 1.4rem; letter-spacing: 1px; }
+
+    nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover { text-decoration: underline; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=60') center/cover no-repeat;
+      min-height: 55vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+
+    .hero-content {
+      color: #fff; max-width: 700px; z-index: 2;
+    }
+
+    .hero-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    section { max-width: 1100px; margin: auto; padding: 2.5rem 1rem; }
+
+    section h2 {
+      text-align: center;
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Profil */
+    #user {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .profile-card, .info-list {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .profile-card img {
+      width: 100px; height: 100px;
+      object-fit: cover; border-radius: 50%;
+      border: 3px solid var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .info-list h3 { color: var(--primary); margin-bottom: 0.75rem; }
+    .info-list ul { list-style: none; line-height: 1.8; font-size: 0.95rem; }
+    .info-list ul li::before { content: "✔ "; color: var(--primary); font-weight: bold; }
+
+    /* Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .info-card {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+
+    .info-card:hover { transform: translateY(-5px); }
+    .info-icon { font-size: 2rem; color: var(--primary); margin-bottom: 0.75rem; }
+
+    /* Form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input, textarea, select {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover { background: var(--primary-dark); }
+
+    footer {
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>PMR SMKN 8</h1>
+    <nav>
+      <a href="#user">Profil</a>
+      <a href="#pmr">Info PMR</a>
+      <a href="#pemeriksaan">Pemeriksaan</a>
+      <a href="#konsultasi">Konsultasi</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h2>Palang Merah Remaja SMKN 8</h2>
+        <p>Bersama kita membangun semangat kemanusiaan, kepedulian, dan kesehatan di lingkungan sekolah.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFIL -->
+  <section id="user">
+    <h2>Profil PMR & Anggota</h2>
+    <div class="profile-card">
+      <img src="https://i.pravatar.cc/150?img=14" alt="User">
+      <h3>PMR SMKN 8</h3>
+      <p>Organisasi kesehatan sekolah yang aktif dalam kegiatan sosial & kemanusiaan.</p>
+      <hr style="margin:1rem 0; border:0; border-top:1px solid #eee;">
+      <p>Didirikan: 2010<br>Jumlah Anggota: 80+ siswa aktif</p>
+    </div>
+    <div class="info-list">
+      <h3>Highlight Anggota & Program</h3>
+      <ul>
+        <li>Pelatihan rutin PP & PK setiap minggu</li>
+        <li>Berpartisipasi dalam kegiatan donor darah kota</li>
+        <li>Menjadi tim kesehatan dalam acara sekolah</li>
+        <li>Memenangkan lomba PMR se-Kota tahun 2024 🏆</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- INFO PMR -->
+  <section id="pmr">
+    <h2>Informasi PMR</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">❤️</div>
+        <h3>Kegiatan Rutin</h3>
+        <p>Latihan PP & PK, donor darah, serta program kemanusiaan.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📚</div>
+        <h3>Materi & Pelatihan</h3>
+        <p>Pembelajaran Pertolongan Pertama dan Perawatan Keluarga.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">👥</div>
+        <h3>Struktur Organisasi</h3>
+        <p>Pengurus aktif, pembina, serta program kerja berkelanjutan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PEMERIKSAAN -->
+  <section id="pemeriksaan">
+    <h2>Pemeriksaan Kesehatan Bulanan</h2>
+    <p style="text-align:center; max-width:600px; margin:0 auto 1.5rem;">
+      Pemeriksaan dilakukan setiap bulan oleh tim PMR & UKS.
+    </p>
+    <form id="formPemeriksaan">
+      <input type="text" id="namaPemeriksaan" placeholder="Nama Lengkap" required>
+      <input type="text" id="kelasPemeriksaan" placeholder="Kelas" required>
+      <select id="jenisPemeriksaan" required>
+        <option value="">Pilih Jenis Pemeriksaan</option>
+        <option>Tekanan Darah</option>
+        <option>Tinggi & Berat Badan</option>
+        <option>Kebersihan Diri</option>
+        <option>Pemeriksaan Umum</option>
+      </select>
+      <button type="submit">Daftar Pemeriksaan</button>
+    </form>
+  </section>
+
+  <!-- KONSULTASI -->
+  <section id="konsultasi">
+    <h2>Konsultasi Kesehatan</h2>
+    <p style="text-align:center; max-width:600px; margin:0 auto 1.5rem;">
+      Kirim pertanyaan atau keluhan kesehatanmu melalui form berikut.
+    </p>
+    <form id="formKonsultasi">
+      <input type="text" id="namaKonsultasi" placeholder="Nama Lengkap" required>
+      <input type="email" id="emailKonsultasi" placeholder="Email / Kontak" required>
+      <textarea id="pesanKonsultasi" rows="4" placeholder="Tulis pertanyaan atau keluhan..." required></textarea>
+      <button type="submit">Kirim Konsultasi</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 PMR SMKN 8 | Kemanusiaan • Kepedulian • Kesehatan
+  </footer>
+
+  <script>
+    // Simpan data pemeriksaan ke localStorage
+    document.getElementById('formPemeriksaan').addEventListener('submit', function(e){
+      e.preventDefault();
+      const nama = document.getElementById('namaPemeriksaan').value;
+      const kelas = document.getElementById('kelasPemeriksaan').value;
+      const jenis = document.getElementById('jenisPemeriksaan').value;
+      const tanggal = new Date().toLocaleDateString('id-ID');
+
+      const data = { nama, kelas, jenis, tanggal };
+      let daftar = JSON.parse(localStorage.getItem('pemeriksaanData')) || [];
+      daftar.push(data);
+      localStorage.setItem('pemeriksaanData', JSON.stringify(daftar));
+      alert('Pendaftaran pemeriksaan berhasil!');
+      this.reset();
+    });
+
+    // Simpan data konsultasi ke localStorage
+    document.getElementById('formKonsultasi').addEventListener('submit', function(e){
+      e.preventDefault();
+      const nama = document.getElementById('namaKonsultasi').value;
+      const kontak = document.getElementById('emailKonsultasi').value;
+      const pesan = document.getElementById('pesanKonsultasi').value;
+      const tanggal = new Date().toLocaleDateString('id-ID');
+
+      const data = { nama, kontak, pesan, tanggal };
+      let daftar = JSON.parse(localStorage.getItem('konsultasiData')) || [];
+      daftar.push(data);
+      localStorage.setItem('konsultasiData', JSON.stringify(daftar));
+      alert('Pertanyaan konsultasi berhasil dikirim!');
+      this.reset();
+    });
+  </script>
+</body>
+</html>

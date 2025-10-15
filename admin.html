@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel PMR SMKN 8</title>
+  <style>
+    :root {
+      --primary: #d32f2f;
+      --primary-dark: #b71c1c;
+      --bg: #f5f6fa;
+      --white: #fff;
+      --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", Tahoma, sans-serif; }
+
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 { font-size: 1.5rem; }
+
+    nav a {
+      color: #fff;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover { opacity: 0.8; }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      width: 90%;
+      margin: 2rem auto;
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin-top: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    table th {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    table tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    .hapus-btn, .hapus-satu {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.4rem 0.7rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 0.9rem;
+    }
+
+    .hapus-btn:hover, .hapus-satu:hover {
+      background: var(--primary-dark);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #eee;
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: auto;
+    }
+
+    .top-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      table th, table td { font-size: 0.85rem; }
+      header h1 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Admin Panel PMR</h1>
+    <nav>
+      <span id="adminName"></span>
+      <a href="pmr.html">Beranda</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="top-info">
+      <h2>Data Pemeriksaan Kesehatan</h2>
+      <button class="hapus-btn" onclick="hapusSemua('pemeriksaanData')">Hapus Semua</button>
+    </div>
+    <table id="tabelPemeriksaan">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Kelas</th>
+          <th>Jenis</th>
+          <th>Tanggal</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="top-info">
+      <h2>Data Konsultasi</h2>
+      <button class="hapus-btn" onclick="hapusSemua('konsultasiData')">Hapus Semua</button>
+    </div>
+    <table id="tabelKonsultasi">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Kontak</th>
+          <th>Pesan</th>
+          <th>Tanggal</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <footer>
+    &copy; 2025 PMR SMKN 8. Panel Admin.
+  </footer>
+
+  <script>
+    // Proteksi akses hanya admin
+    const loginUser = localStorage.getItem('loginUser');
+    const adminList = ['habibi', 'rayhan', 'admin'];
+
+    if(!loginUser || !adminList.includes(loginUser)){
+      // Kalau bukan admin atau belum login → ke login
+      window.location.href = 'login.html';
+    } else {
+      document.getElementById('adminName').textContent = `👤 ${loginUser}`;
+    }
+
+    function logout(){
+      localStorage.removeItem('loginUser');
+      window.location.href = 'login.html';
+    }
+
+    function tampilkanData(){
+      const pemeriksaan = JSON.parse(localStorage.getItem('pemeriksaanData')) || [];
+      const konsultasi = JSON.parse(localStorage.getItem('konsultasiData')) || [];
+
+      const tbodyP = document.querySelector('#tabelPemeriksaan tbody');
+      const tbodyK = document.querySelector('#tabelKonsultasi tbody');
+      tbodyP.innerHTML = '';
+      tbodyK.innerHTML = '';
+
+      pemeriksaan.forEach((d,i) => {
+        tbodyP.innerHTML += `
+          <tr>
+            <td>${d.nama}</td>
+            <td>${d.kelas}</td>
+            <td>${d.jenis}</td>
+            <td>${d.tanggal}</td>
+            <td><button class="hapus-satu" onclick="hapusSatu('pemeriksaanData', ${i})">Hapus</button></td>
+          </tr>`;
+      });
+
+      konsultasi.forEach((d,i) => {
+        tbodyK.innerHTML += `
+          <tr>
+            <td>${d.nama}</td>
+            <td>${d.kontak}</td>
+            <td>${d.pesan}</td>
+            <td>${d.tanggal}</td>
+            <td><button class="hapus-satu" onclick="hapusSatu('konsultasiData', ${i})">Hapus</button></td>
+          </tr>`;
+      });
+    }
+
+    function hapusSemua(key){
+      if(confirm('Yakin ingin menghapus semua data?')){
+        localStorage.removeItem(key);
+        tampilkanData();
+      }
+    }
+
+    function hapusSatu(key, index){
+      const data = JSON.parse(localStorage.getItem(key)) || [];
+      data.splice(index, 1);
+      localStorage.setItem(key, JSON.stringify(data));
+      tampilkanData();
+    }
+
+    tampilkanData();
+  </script>
+</body>
+</html>
